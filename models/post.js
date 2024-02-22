@@ -19,10 +19,6 @@ const Post = db.Sequelize.define('Post', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    listing_date: {
-        type: DataTypes.DATE,
-        defaultValue: false
-    },
     content: {
         type: DataTypes.TEXT,
         allowNull: false

@@ -32,10 +32,6 @@ const property = db.Sequelize.define('property', {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      listing_date: {
-        type: DataTypes.DATE,
-        defaultValue: false
-    },
 });
 
 
