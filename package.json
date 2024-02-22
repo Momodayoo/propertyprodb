@@ -1,0 +1,24 @@
+{
+  "name": "propertyprodb",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/momodayoo/propertyprodb.git"
+  },
+  "author": "momodayoo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/momodayoo/propertyprodb/issues"
+  },
+  "homepage": "https://github.com/momodayoo/propertyprodb#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {},
+  "description": ""
+}
