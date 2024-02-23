@@ -21,6 +21,7 @@ app.use(express.json());
 
 //Serves static files (we need it to import a css file)
 app.use(express.static('public'));
+app.use('/uploads', express.static('uploads')); 
 
 // Swagger in dev mode
 if (process.env.NODE_ENV === 'development') {
@@ -41,6 +42,8 @@ app.use("/api/likes", require("./routes/likeRoutes"));
 app.use("/api/property", require("./routes/propertyRoutes"));
 // add images routes
 app.use("/api/images", require("./routes/imageRoutes"));
+// add view user routes
+app.use("/users", require("./routes/viewUserRoutes"));
 
 app.get("/", (req, res) => {
   res.send("hello world");
