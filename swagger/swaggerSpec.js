@@ -14,7 +14,7 @@ const swaggerDocument = {
   ],
   tags: [
     {
-      name: 'Momo Property API',
+      name: 'Momo PropertyPro API',
       description: 'API for Momo property posts',
     },
   ],

@@ -29,7 +29,7 @@ const {propertyValidator, updatePropertyValidator, propertyTypeParamValidator} =
 router.get("/", async (req, res, next) => {
     try {
         const data = await propertyController.getProperties();
-        res.send(data);
+        res.send({result:200, data: data});
     } catch(err) {
         next(err);
     }
@@ -82,7 +82,7 @@ router.get("/:id", idParamValidator, async (req, res, next) => {
  * @swagger
  * /api/properties/user/{id}:
  *  get:
- *    description: Use to request a properties by user ID
+ *    description: Use to request a property by user ID
  *    tags:
  *      - Properties
  *    parameters:
@@ -225,7 +225,7 @@ router.post("/", upload.single('image'), imageUploadValidator, propertyValidator
             if (req.file){
                 propertyData.image = req.file;
             }
-            const data = await propertyController.createProperty(propetyData);
+            const data = await propertyController.createProperty(propertyData);
             if (!data){
                 res.sendStatus(404);
             } else {

@@ -1,5 +1,6 @@
 "use strict";
 const { Sequelize } = require("sequelize");
+const Logger = require('../logging/logger');
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -18,6 +19,14 @@ const sequelize = new Sequelize(
      }
   }
 );
+
+sequelize.authenticate()
+    .then(() => {
+        Logger.info('Connection to db has been established successfully.');
+    })
+    .catch(err => {
+        Logger.error('Unable to connect to the database:', err);
+    });
 
 module.exports = {
   Sequelize: sequelize,

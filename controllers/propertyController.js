@@ -1,17 +1,15 @@
 // property controller
 const property = require('../models/property');
-const property = require('../models/property');
-const property = require('../models/property');
 const { saveImage } = require("../utility/uploader");
 /**
  *
  * @returns Array<property>
  */
-const getProperty = async () => {
+const getProperties = async () => {
     const data = await property.findAll({ raw: true});
     return data;
 };
-const getProperties = async (id) => {
+const getProperty = async (id) => {
     const data = await property.findOne({ where: { id: id }, raw: true });
     return data;
 };
@@ -19,6 +17,11 @@ const getPropertyByUser = async (id) => {
     const data = await property.findAll({ where: { userId: id } , raw: true});
     return data;
 };
+
+const getPropertiesByType = async (type) => {
+    const data = await property.findAll({where: {type: type}});
+    return data;
+}
 const createProperty = async (data) => {
     const { image, ...propertyData } = data;
     // if there is an image in the data to handle
@@ -48,6 +51,7 @@ module.exports = {
     getProperty,
     getProperties,
     getPropertyByUser,
+    getPropertiesByType,
     createProperty,
     updateProperty,
     deleteProperty,
