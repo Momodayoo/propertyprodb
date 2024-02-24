@@ -8,7 +8,6 @@ const userValidator = [
     "password",
     "The minimum password length is 6 characters, max 50"
   ).isLength({ min: 6, max: 50 }),
-  body("profile").optional().isLength({ min: 0 }),
 ];
 
 const userUpdateValidator = [
@@ -23,25 +22,7 @@ const userUpdateValidator = [
   }),
 ];
 
-const uniqueEmailValidator = body('email').optional().custom(async (email) => {
-  const existingUser = await User.findOne({ where: { email: email } });
-  if (existingUser) {
-    throw new Error('Email already in use');
-  }
-  return true; // Validation succeeded
-});
-
-const userLoginValidator = [
-body("email", "Invalid does not Empty").not().isEmpty(),
-body("email", "Invalid email").isEmail(),
-body("password", "The minimum password length is 6 characters").isLength({
-  min: 6,
-  max: 120,
-}),
-];
 module.exports = {
   userValidator,
   userUpdateValidator,
-  uniqueEmailValidator,
-  userLoginValidator,
 };

@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../db');
 
-const property = db.Sequelize.define('property', {
+const Property = db.Sequelize.define('Property', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -51,4 +51,4 @@ const property = db.Sequelize.define('property', {
 });
 
 
-module.exports = property;
+module.exports = Property;

@@ -177,16 +177,38 @@ router.get("/type/:type", propertyTypeParamValidator, async (req, res, next) => 
  *            type: object
  *            required:
  *              - userId
- *              - address
+ *              - address1
+ *              - address2
+ *              - city
+ *              - state
+ *              - postcode
  *              - type
  *              - price
+ *              - image
+ *              - profile
  *            properties:
  *              userId:
  *                type: integer
  *                example: 2
- *              address:
+ *              address1:
  *                type: string
- *                example: 20 woop woop allaway
+ *                example: Unit/level/Number
+ *                nullable: true
+ *              address2:
+ *                type: string
+ *                example: street address
+ *                nullable: true
+ *              city:
+ *                type: string
+ *                example: city
+ *                nullable: true
+ *              state:
+ *                type: string
+ *                example: state
+ *                nullable: true
+ *              postcode:
+ *                type: string
+ *                example: postcode
  *                nullable: true
  *              type:
  *                type: string
@@ -254,16 +276,38 @@ router.post("/", upload.single('image'), imageUploadValidator, propertyValidator
  *            type: object
  *            required:
  *              - userId
- *              - address
+ *              - address1
+ *              - address2
+ *              - city
+ *              - state
+ *              - postcode
  *              - type
  *              - price
+ *              - image
+ *              - profile
  *            properties:
  *              userId:
  *                type: integer
  *                example: 2
- *              address:
+ *              address1:
  *                type: string
- *                example: 20 woop woop allaway
+ *                example: Unit/level/Number
+ *                nullable: true
+ *              address2:
+ *                type: string
+ *                example: street address
+ *                nullable: true
+ *              city:
+ *                type: string
+ *                example: city
+ *                nullable: true
+ *              state:
+ *                type: string
+ *                example: state
+ *                nullable: true
+ *              postcode:
+ *                type: string
+ *                example: postcode
  *                nullable: true
  *              type:
  *                type: string
