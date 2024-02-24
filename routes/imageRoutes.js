@@ -91,10 +91,10 @@ router.get("/:id", idParamValidator, async (req, res, next) => {
  *       schema:
  *        type: object
  *        required:
- *         - eventId
+ *         - propertyId
  *         - image
  *        properties:
- *         eventId:
+ *         propertyId:
  *          type: integer
  *          example: 3
  *         image:

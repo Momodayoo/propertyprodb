@@ -4,7 +4,7 @@ const propertyController = require("../controllers/propertyController");
 
 // import multer for image file hanlding
 const multer = require('multer');
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({dest: 'uploads/' });
 
 // import validators
 const {validationResult} = require('express-validator');
@@ -17,7 +17,7 @@ const {propertyValidator, updatePropertyValidator, propertyTypeParamValidator} =
  *  get:
  *    description: Use to request all property
  *    tags:
- *      - Property
+ *      - Properties
  *    responses:
  *      '200':
  *        description: A successful response
@@ -41,7 +41,7 @@ router.get("/", async (req, res, next) => {
  *  get:
  *    description: Use to request a property by ID
  *    tags:
- *      - Property
+ *      - Properties
  *    parameters:
  *      - name: id
  *        in: path
@@ -80,7 +80,7 @@ router.get("/:id", idParamValidator, async (req, res, next) => {
 
 /**
  * @swagger
- * /api/properties/user/{id}:
+ * /api/property/user/{id}:
  *  get:
  *    description: Use to request a property by user ID
  *    tags:
@@ -165,9 +165,9 @@ router.get("/type/:type", propertyTypeParamValidator, async (req, res, next) => 
 
 /**
  * @swagger
- * /api/properties:
+ * /api/property:
  *  post:
- *    description: Use to create a new property
+ *    description: Use to update an existing property
  *    tags:
  *      - Properties
  *    requestBody:
@@ -194,7 +194,7 @@ router.get("/type/:type", propertyTypeParamValidator, async (req, res, next) => 
  *                example: landed
  *              price:
  *                type: integer
- *                example: 20,000
+ *                example: 20000
  *                nullable: true
  *              image:
  *                type: string
@@ -219,11 +219,12 @@ router.get("/type/:type", propertyTypeParamValidator, async (req, res, next) => 
  */
 router.post("/", upload.single('image'), imageUploadValidator, propertyValidator, async (req, res, next) => {
     try {
+        console.log(req.body);
         const errors = validationResult(req);
         if (errors.isEmpty()){
             let propertyData = req.body;
             if (req.file){
-                propertyData.image = req.file;
+                propertyData.image = req.file.filename;
             }
             const data = await propertyController.createProperty(propertyData);
             if (!data){
@@ -270,7 +271,7 @@ router.post("/", upload.single('image'), imageUploadValidator, propertyValidator
  *                example: landed
  *              price:
  *                type: integer
- *                example: 20,000
+ *                example: 20000
  *                nullable: true
  *              image:
  *                type: string
@@ -324,7 +325,7 @@ router.put("/:id", upload.single('image'), imageUploadValidator, updatePropertyV
  *  delete:
  *    description: Use to delete a property by ID
  *    tags:
- *      - Property
+ *      - Properties
  *    parameters:
  *      - name: id
  *        in: path

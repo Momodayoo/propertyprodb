@@ -11,15 +11,15 @@ const getImage = async (id) => {
     return data;
 }
 
-const getImagesByEvent = async (id) => {
-    const data = await Image.findOne({where: {eventId: id}});
+const getImagesByProperty = async (id) => {
+    const data = await Image.findOne({where: {propertyId: id}});
     return data;
 }
 
 const createImage = async (data) => {
     let imageData = {...data};
     // if there is an image in the data to handle
-    imageData.image = await saveImage(data.image, "event");
+    imageData.image = await saveImage(data.image, "property");
 
     const image = await Image.create(imageData);
     return image;
@@ -33,7 +33,7 @@ const deleteImage = async (id) => {
 module.exports = {
     getImages,
     getImage,
-    getImagesByEvent,
+    getImagesByProperty,
     createImage,
     deleteImage
 };

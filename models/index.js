@@ -92,9 +92,9 @@ async function init() {
             allowNull: false,
         },
     }); 
-    image.belongsTo(Post, {
+    image.belongsTo(property, {
             foreignKey: {
-            name: "postId",
+            name: "propertyId",
             allowNull: false,
         },
     });
@@ -105,6 +105,7 @@ async function init() {
   await Post.sync();
   await Comment.sync();
   await Like.sync();
+  await image.sync();
 }
 module.exports = {
   init,
