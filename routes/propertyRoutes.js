@@ -194,7 +194,7 @@ router.get("/type/:type", propertyTypeParamValidator, async (req, res, next) => 
  *                example: landed
  *              price:
  *                type: integer
- *                example: 20,000
+ *                example: 20000
  *                nullable: true
  *              image:
  *                type: string
@@ -225,7 +225,7 @@ router.post("/", upload.single('image'), imageUploadValidator, propertyValidator
             if (req.file){
                 propertyData.image = req.file;
             }
-            const data = await propertyController.createProperty(propetyData);
+            const data = await propertyController.createProperty(propertyData);
             if (!data){
                 res.sendStatus(404);
             } else {
@@ -270,7 +270,7 @@ router.post("/", upload.single('image'), imageUploadValidator, propertyValidator
  *                example: landed
  *              price:
  *                type: integer
- *                example: 20,000
+ *                example: 20000
  *                nullable: true
  *              image:
  *                type: string
