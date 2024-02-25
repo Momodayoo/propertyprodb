@@ -17,7 +17,7 @@ const {propertyValidator, updatePropertyValidator, propertyTypeParamValidator} =
  *  get:
  *    description: Use to request all property
  *    tags:
- *      - Properties
+ *      - Property
  *    responses:
  *      '200':
  *        description: A successful response
@@ -28,7 +28,7 @@ const {propertyValidator, updatePropertyValidator, propertyTypeParamValidator} =
  */
 router.get("/", async (req, res, next) => {
     try {
-        const data = await propertyController.getProperties();
+        const data = await propertyController.getProperty();
         res.send({result:200, data: data});
     } catch(err) {
         next(err);
@@ -41,7 +41,7 @@ router.get("/", async (req, res, next) => {
  *  get:
  *    description: Use to request a property by ID
  *    tags:
- *      - Properties
+ *      - Property
  *    parameters:
  *      - name: id
  *        in: path
@@ -84,12 +84,11 @@ router.get("/:id", idParamValidator, async (req, res, next) => {
  *  get:
  *    description: Use to request a property by user ID
  *    tags:
- *      - Properties
+ *      - Property
  *    parameters:
  *      - name: id
  *        in: path
- *        description: ID of user to fetch properties 
- *        required: true
+ *        description: ID of user to fetch property
  *        type: integer
  *        minimum: 1
  *        example: 1
@@ -127,7 +126,7 @@ router.get("/user/:id", idParamValidator, async (req, res, next) => {
  *  get:
  *    description: Use to request property by type
  *    tags:
- *      - Properties
+ *      - Property
  *    parameters:
  *      - name: type
  *        in: path
@@ -169,7 +168,7 @@ router.get("/type/:type", propertyTypeParamValidator, async (req, res, next) => 
  *  post:
  *    description: Use to update an existing property
  *    tags:
- *      - Properties
+ *      - Property
  *    requestBody:
  *      content:
  *        multipart/form-data:
@@ -186,7 +185,7 @@ router.get("/type/:type", propertyTypeParamValidator, async (req, res, next) => 
  *              - price
  *              - image
  *              - profile
- *            properties:
+ *            property:
  *              userId:
  *                type: integer
  *                example: 2
@@ -268,7 +267,7 @@ router.post("/", upload.single('image'), imageUploadValidator, propertyValidator
  *  put:
  *    description: Use to update an existing property
  *    tags:
- *      - Properties
+ *      - Property
  *    requestBody:
  *      content:
  *        multipart/form-data:
@@ -285,7 +284,7 @@ router.post("/", upload.single('image'), imageUploadValidator, propertyValidator
  *              - price
  *              - image
  *              - profile
- *            properties:
+ *            property:
  *              userId:
  *                type: integer
  *                example: 2
@@ -369,7 +368,7 @@ router.put("/:id", upload.single('image'), imageUploadValidator, updatePropertyV
  *  delete:
  *    description: Use to delete a property by ID
  *    tags:
- *      - Properties
+ *      - Property
  *    parameters:
  *      - name: id
  *        in: path

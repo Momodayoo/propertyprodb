@@ -4,7 +4,7 @@ const Property = require('../models/property');
  *
  * @returns Array<Property>
  */
-const getProperties = async () => {
+const getAllProperty = async () => {
     const data = await Property.findAll({ raw: true});
     return data;
 };
@@ -17,7 +17,7 @@ const getPropertyByUser = async (id) => {
     return data;
 };
 
-const getPropertiesByType = async (type) => {
+const getPropertyByType = async (type) => {
     const data = await Property.findAll({where: {type: type}});
     return data;
 }
@@ -35,9 +35,9 @@ const deleteProperty = async (id) => {
 };
 module.exports = {
     getProperty,
-    getProperties,
+    getAllProperty,
     getPropertyByUser,
-    getPropertiesByType,
+    getPropertyByType,
     createProperty,
     updateProperty,
     deleteProperty,
