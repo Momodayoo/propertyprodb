@@ -11,23 +11,7 @@ const Property = db.Sequelize.define('Property', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    address1: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      address2: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      city: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      state: {
-        type: DataTypes.STRING,
-        allowNull: true, 
-      },
-      postcode: {
+    address: {
         type: DataTypes.STRING,
         allowNull: true,
       },

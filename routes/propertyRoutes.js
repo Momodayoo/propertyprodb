@@ -4,7 +4,7 @@ const propertyController = require("../controllers/propertyController");
 
 // import multer for image file hanlding
 const multer = require('multer');
-const upload = multer({dest: 'uploads/' });
+const upload = multer({ storage: multer.memoryStorage() });
 
 // import validators
 const {validationResult} = require('express-validator');
@@ -17,7 +17,7 @@ const {propertyValidator, updatePropertyValidator, propertyTypeParamValidator} =
  *  get:
  *    description: Use to request all property
  *    tags:
- *      - Property
+ *      - Properties
  *    responses:
  *      '200':
  *        description: A successful response
@@ -28,8 +28,8 @@ const {propertyValidator, updatePropertyValidator, propertyTypeParamValidator} =
  */
 router.get("/", async (req, res, next) => {
     try {
-        const data = await propertyController.getProperty();
-        res.send({result:200, data: data});
+        const data = await propertyController.getAllProperty();
+        res.send(data);
     } catch(err) {
         next(err);
     }
@@ -41,7 +41,7 @@ router.get("/", async (req, res, next) => {
  *  get:
  *    description: Use to request a property by ID
  *    tags:
- *      - Property
+ *      - Properties
  *    parameters:
  *      - name: id
  *        in: path
@@ -82,13 +82,14 @@ router.get("/:id", idParamValidator, async (req, res, next) => {
  * @swagger
  * /api/property/user/{id}:
  *  get:
- *    description: Use to request a property by user ID
+ *    description: Use to request a properties by user ID
  *    tags:
- *      - Property
+ *      - Properties
  *    parameters:
  *      - name: id
  *        in: path
- *        description: ID of user to fetch property
+ *        description: ID of user to fetch properties 
+ *        required: true
  *        type: integer
  *        minimum: 1
  *        example: 1
@@ -126,14 +127,14 @@ router.get("/user/:id", idParamValidator, async (req, res, next) => {
  *  get:
  *    description: Use to request property by type
  *    tags:
- *      - Property
+ *      - Properties
  *    parameters:
  *      - name: type
  *        in: path
  *        description: type of property
  *        required: true
  *        type: string
- *        example: house
+ *        example: landed
  *    responses:
  *      '200':
  *        description: A successful response
@@ -166,9 +167,9 @@ router.get("/type/:type", propertyTypeParamValidator, async (req, res, next) => 
  * @swagger
  * /api/property:
  *  post:
- *    description: Use to update an existing property
+ *    description: Use to create a new property
  *    tags:
- *      - Property
+ *      - Properties
  *    requestBody:
  *      content:
  *        multipart/form-data:
@@ -176,38 +177,16 @@ router.get("/type/:type", propertyTypeParamValidator, async (req, res, next) => 
  *            type: object
  *            required:
  *              - userId
- *              - address1
- *              - address2
- *              - city
- *              - state
- *              - postcode
+ *              - address
  *              - type
  *              - price
- *              - image
- *              - profile
- *            property:
+ *            properties:
  *              userId:
  *                type: integer
  *                example: 2
- *              address1:
+ *              address:
  *                type: string
- *                example: Unit/level/Number
- *                nullable: true
- *              address2:
- *                type: string
- *                example: street address
- *                nullable: true
- *              city:
- *                type: string
- *                example: city
- *                nullable: true
- *              state:
- *                type: string
- *                example: state
- *                nullable: true
- *              postcode:
- *                type: string
- *                example: postcode
+ *                example: 20 woop woop allaway
  *                nullable: true
  *              type:
  *                type: string
@@ -215,7 +194,7 @@ router.get("/type/:type", propertyTypeParamValidator, async (req, res, next) => 
  *                example: landed
  *              price:
  *                type: integer
- *                example: 20000
+ *                example: 20,000
  *                nullable: true
  *              image:
  *                type: string
@@ -240,14 +219,13 @@ router.get("/type/:type", propertyTypeParamValidator, async (req, res, next) => 
  */
 router.post("/", upload.single('image'), imageUploadValidator, propertyValidator, async (req, res, next) => {
     try {
-        console.log(req.body);
         const errors = validationResult(req);
         if (errors.isEmpty()){
             let propertyData = req.body;
             if (req.file){
-                propertyData.image = req.file.filename;
+                propertyData.image = req.file;
             }
-            const data = await propertyController.createProperty(propertyData);
+            const data = await propertyController.createProperty(propetyData);
             if (!data){
                 res.sendStatus(404);
             } else {
@@ -267,7 +245,7 @@ router.post("/", upload.single('image'), imageUploadValidator, propertyValidator
  *  put:
  *    description: Use to update an existing property
  *    tags:
- *      - Property
+ *      - Properties
  *    requestBody:
  *      content:
  *        multipart/form-data:
@@ -275,38 +253,16 @@ router.post("/", upload.single('image'), imageUploadValidator, propertyValidator
  *            type: object
  *            required:
  *              - userId
- *              - address1
- *              - address2
- *              - city
- *              - state
- *              - postcode
+ *              - address
  *              - type
  *              - price
- *              - image
- *              - profile
- *            property:
+ *            properties:
  *              userId:
  *                type: integer
  *                example: 2
- *              address1:
+ *              address:
  *                type: string
- *                example: Unit/level/Number
- *                nullable: true
- *              address2:
- *                type: string
- *                example: street address
- *                nullable: true
- *              city:
- *                type: string
- *                example: city
- *                nullable: true
- *              state:
- *                type: string
- *                example: state
- *                nullable: true
- *              postcode:
- *                type: string
- *                example: postcode
+ *                example: 20 woop woop allaway
  *                nullable: true
  *              type:
  *                type: string
@@ -314,7 +270,7 @@ router.post("/", upload.single('image'), imageUploadValidator, propertyValidator
  *                example: landed
  *              price:
  *                type: integer
- *                example: 20000
+ *                example: 20,000
  *                nullable: true
  *              image:
  *                type: string
@@ -368,7 +324,7 @@ router.put("/:id", upload.single('image'), imageUploadValidator, updatePropertyV
  *  delete:
  *    description: Use to delete a property by ID
  *    tags:
- *      - Property
+ *      - Properties
  *    parameters:
  *      - name: id
  *        in: path
