@@ -9,9 +9,11 @@ const db = require("./db");
 const models = require("./models");
 models.init();
 
+//cors for cross origin resource sharing
+const app = require("./app");
+
 // start up app services
 const express = require("express");
-const app = express();
 
 // morganMiddleware is a middleware function that logs requests to the console
 app.use(morganMiddleware);
