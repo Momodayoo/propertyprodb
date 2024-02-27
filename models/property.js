@@ -9,7 +9,7 @@ const Property = db.Sequelize.define('Property', {
     },
     userId : {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
     },
     address: {
         type: DataTypes.STRING,
@@ -21,8 +21,11 @@ const Property = db.Sequelize.define('Property', {
         allowNull: false,
       },
       price: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.FLOAT,
         allowNull: false,
+        validate: {
+          min: 0
+        }
       },
       image: {
         type: DataTypes.STRING,

@@ -31,7 +31,7 @@ const verifyToken = require("../auth/authMiddleware");
  *      '500':
  *        description: Server error
  */
-router.get("/", verifyToken, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const data = await userController.getUsers();
     res.send({ result: 200, data: data });

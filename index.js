@@ -5,6 +5,7 @@ const Logger = require("./logging/logger");
 
 // Database
 const db = require("./db");
+
 // create tables
 const models = require("./models");
 models.init();

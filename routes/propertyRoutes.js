@@ -4,7 +4,7 @@ const propertyController = require("../controllers/propertyController");
 
 // import multer for image file hanlding
 const multer = require('multer');
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({ dest: process.env.UPLOADS_DIR || "uploads" });
 
 // import validators
 const {validationResult} = require('express-validator');
@@ -223,7 +223,7 @@ router.post("/", upload.single('image'), imageUploadValidator, propertyValidator
         if (errors.isEmpty()){
             let propertyData = req.body;
             if (req.file){
-                propertyData.image = req.file;
+                propertyData.image = req.file.filename;
             }
             const data = await propertyController.createProperty(propertyData);
             if (!data){
