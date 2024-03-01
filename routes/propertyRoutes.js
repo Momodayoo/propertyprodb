@@ -29,7 +29,7 @@ const {propertyValidator, updatePropertyValidator, propertyTypeParamValidator} =
 router.get("/", async (req, res, next) => {
     try {
         const data = await propertyController.getAllProperty();
-        res.send(data);
+        res.send({"result":200, "data":data});
     } catch(err) {
         next(err);
     }
